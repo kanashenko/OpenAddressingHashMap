@@ -48,18 +48,16 @@ class OpenAddressingHashMapTest {
 		map.put(10, 2);
 		map.put(15, 3);
 		
-		map.put(7, 4);		
-		map.put(14, 5);
-		map.put(21, 6);
-		map.put(28, 7);
+		map.put(20, 4);		
+		map.put(30, 5);
+		map.put(40, 6);
 		
 		assertEquals(map.get(5), new Long(1));		
 		assertEquals(map.get(10), new Long(2));
 		assertEquals(map.get(15), new Long(3));
-		assertEquals(map.get(7), new Long(4));
-		assertEquals(map.get(14), new Long(5));
-		assertEquals(map.get(21), new Long(6));
-		assertEquals(map.get(28), new Long(7));		
+		assertEquals(map.get(20), new Long(4));
+		assertEquals(map.get(30), new Long(5));
+		assertEquals(map.get(40), new Long(6));
 	}
 
 }
