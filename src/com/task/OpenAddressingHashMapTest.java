@@ -2,12 +2,15 @@ package com.task;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
+import java.util.Random;
+
 import org.junit.jupiter.api.Test;
 
 class OpenAddressingHashMapTest {
 	
 	@Test
-	void test() {		
+	void Test() {		
 		OpenAddressingHashMap map = new OpenAddressingHashMap();	
 		
 		assertEquals(0, map.size());
@@ -31,7 +34,7 @@ class OpenAddressingHashMapTest {
 	}
 	
 	@Test
-	void test2() {
+	void Test2() {
 		OpenAddressingHashMap map1 = new OpenAddressingHashMap();
 		OpenAddressingHashMap map2 = new OpenAddressingHashMap();
 		map1.put(77, 7000);		
@@ -41,7 +44,27 @@ class OpenAddressingHashMapTest {
 	}
 	
 	@Test
-	void testCollisions() {
+	void TestTime() {
+		OpenAddressingHashMap map = new OpenAddressingHashMap();
+		long start1 = System.currentTimeMillis();
+		for(int i = 0; i < 1000001; i++) {				
+			map.put(i, i);
+		}
+		long end1 = System.currentTimeMillis();
+		System.out.println("put time: "+ (end1-start1)+" ms");
+		System.out.println("map size: "+map.size());
+		
+		long start2 = System.currentTimeMillis();
+		for(int i = 0; i < 1000001; i++) {				
+			assertEquals(map.get(i), new Long(i));
+		}
+		long end2 = System.currentTimeMillis();
+		System.out.println("get time: "+ (end2-start2)+" ms");
+		System.out.println("map size: "+map.size());
+	}
+		
+	@Test
+	void TestCollisions() {
 		OpenAddressingHashMap map = new OpenAddressingHashMap();
 		
 		map.put(5, 1);		

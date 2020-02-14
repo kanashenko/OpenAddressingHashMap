@@ -43,39 +43,35 @@ public class OpenAddressingHashMap {
 		int index;
 		do {
 			index = hash(key, probeNumber);
-			if (table[index] != null) {
-				if (table[index].key == key) {
+			if (table[index] != null && table[index].key == key) {
 					table[index].value = value;
-					num_of_elements--;
 					break;
+			}else if(table[index] == null){
+				table[index] = new Entry(key, value);
+				num_of_elements++;
+				if (num_of_elements >= threshold) {
+					resize();
 				}
+				break;
 			}
 			probeNumber++;
-		} while (table[index] != null);
-
-		table[index] = new Entry(key, value);
-		num_of_elements++;
-		if (num_of_elements >= threshold) {
-			resize();
-		}
+		} while (true);
 	}
 
 	public Long get(int key) {
 		int probeNumber = 0;
-		int index;
-		Long value = null;
-		for (int i = 0; i < table.length; i++) {
-			index = hash(key, probeNumber);
-			if (table[index] == null) {
-
-			} else if (table[index].key != key) {
-
-			} else {
-				value = table[index].value;
+		int index = hash(key, probeNumber);
+		while (table[index] != null) {
+			if(probeNumber >= table.length) {
+				return null;
 			}
+			if (table[index] != null && table[index].key == key) {
+				return table[index].value;
+			} 
 			probeNumber++;
+			index = hash(key, probeNumber);
 		}
-		return value;
+		return null;
 	}
 
 	public int size() {
@@ -83,7 +79,7 @@ public class OpenAddressingHashMap {
 	}	
 	
 	private int hash(int key, int probeNumber) {
-
+		
 		return (key + probeNumber) % table.length;
 	}
 
